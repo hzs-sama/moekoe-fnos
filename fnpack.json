@@ -42,6 +42,17 @@
               "size": 11575182
             }
           }
+        },
+        "1.7.5": {
+          "changelog": "修复 Web 端插件管理（内置插件市场+下载+安装指引）；同 v1.7.4 重新打包以确保检查更新可见",
+          "updated_at": "2026-10-13T19:47:29+08:00",
+          "packages": {
+            "all": {
+              "download_url": "./apps/moekoe/fpk/moekoe_v1.7.5_all.fpk",
+              "sha256": "d04b1e93165f96de9c44ab4ce29697c569636ab2f09ab79a0a0e44367d6d0c7c",
+              "size": 11575182
+            }
+          }
         }
       },
       "service_port": "8095",
