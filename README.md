@@ -4,7 +4,15 @@
 
 ## 安装应用
 
-FnDepot 客户端 → 添加外部源 → 填入本仓库地址：
+FnDepot 客户端 → 添加外部源 → 填入源地址。
+
+**推荐（国内直连，无 CDN 缓存，检查更新即时生效）：**
+
+```
+https://hzs-sama.cn/depot/fnpack.json
+```
+
+备选（GitHub，发版后可能有 CDN 缓存延迟）：
 
 ```
 https://github.com/hzs-sama/moekoe-fnos
