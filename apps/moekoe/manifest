@@ -1,5 +1,5 @@
 appname                    = moekoe
-version                    = 1.7.3
+version                    = 1.7.4
 display_name               = MoeKoe 音乐
 desc                       = MoeKoe 音乐 Web 版（酷狗源在线音乐）。安装后桌面点开即用，酷狗扫码登录可解锁收藏同步与高音质。
 platform                   = all

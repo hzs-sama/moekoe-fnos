@@ -31,6 +31,17 @@
               "size": 11565010
             }
           }
+        },
+        "1.7.4": {
+          "changelog": "Web 端插件市场：浏览器里可直接浏览/下载插件并附安装指引；插件市场经本机反代加速",
+          "updated_at": "2026-10-13T19:37:18+08:00",
+          "packages": {
+            "all": {
+              "download_url": "./apps/moekoe/fpk/moekoe_v1.7.4_all.fpk",
+              "sha256": "03bcd9c38adf686fa42ff1bffda0499aa3cb0c642e8618149f3048ad347c82b7",
+              "size": 11575182
+            }
+          }
         }
       },
       "service_port": "8095",

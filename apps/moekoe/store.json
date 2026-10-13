@@ -9,6 +9,9 @@
   "releases": {
     "1.7.3": {
       "changelog": "MoeKoe Music 飞牛打包版（静态 compose，端口 8095）"
+    },
+    "1.7.4": {
+      "changelog": "Web 端插件市场：浏览器里可直接浏览/下载插件并附安装指引；插件市场经本机反代加速"
     }
   }
 }

@@ -250,11 +250,49 @@
             </div>
         </div>
     </template>
-    <div v-else class="extensions-empty">
-        <div class="empty-icon">
-            <i class="fas fa-puzzle-piece"></i>
+    <div v-else class="web-plugin-panel">
+        <div class="web-plugin-guide">
+            <h4>Web 端插件安装指引</h4>
+            <ol>
+                <li>在下方列表点击「下载」获取插件 zip 包，并解压为文件夹</li>
+                <li>浏览器地址栏打开 <code>chrome://extensions/</code>（Edge 为 <code>edge://extensions/</code>）</li>
+                <li>打开「开发者模式」开关</li>
+                <li>点击「加载已解压的扩展程序」，选择解压出的文件夹</li>
+            </ol>
+            <p class="web-guide-note">市场插件主要为桌面客户端设计，部分插件在 Web 端可能不生效；Firefox 对 MV3 支持有限，建议使用 Chrome/Edge。官方插件市场：<a href="https://music.moekoe.cn/plugins.html" target="_blank" rel="noopener noreferrer">music.moekoe.cn/plugins.html</a></p>
         </div>
-        <h4>{{ t('web-cha-jian-ti-shi') }}</h4>
+        <div class="web-plugin-list">
+            <div v-if="webMarketLoading" class="extensions-loading">
+                <i class="fas fa-spinner fa-spin"></i> 正在加载插件市场…
+            </div>
+            <div v-else-if="webMarketError" class="market-feedback error">{{ webMarketError }}</div>
+            <div v-else-if="webMarketPlugins.length" class="market-list">
+                <div v-for="plugin in webMarketPlugins" :key="plugin.uniqueKey" class="market-item">
+                    <div class="market-item-header">
+                        <div class="market-title-group">
+                            <div class="extension-icon market-icon">
+                                <img v-if="plugin.icon" :src="plugin.icon" :alt="plugin.name" class="extension-icon-img" @error="e => (e.target.style.display = 'none')" />
+                                <i v-else class="fas fa-store"></i>
+                            </div>
+                            <div class="market-title-text">
+                                <h4>
+                                    <a v-if="plugin.snapshotUrl" class="market-title-link" :href="plugin.snapshotUrl" target="_blank" rel="noopener noreferrer">{{ plugin.name }}</a>
+                                    <template v-else>{{ plugin.name }}</template>
+                                </h4>
+                                <p>{{ plugin.description || '暂无描述' }}</p>
+                            </div>
+                        </div>
+                        <div class="market-status-group">
+                            <span class="market-badge available">v{{ plugin.version }}</span>
+                            <a v-if="plugin.downloadUrl" class="extension-btn success" :href="plugin.downloadUrl" target="_blank" rel="noopener noreferrer">
+                                <i class="fas fa-download"></i> 下载
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div v-else class="market-feedback"><h4>暂无可用插件</h4></div>
+        </div>
     </div>
 </template>
 
@@ -276,6 +314,9 @@ const marketError = ref('')
 const marketSearch = ref('')
 const marketPage = ref(1)
 const marketActionLoading = ref('')
+const webMarketPlugins = ref([])
+const webMarketLoading = ref(false)
+const webMarketError = ref('')
 const currentAppVersion = ref('')
 const nativeHostActionLoading = ref('')
 
@@ -601,6 +642,32 @@ const buildNativeHostAuthorizationMessage = (extension, host) => {
     ].join('\n')
 }
 
+const WEB_MARKET_PROXY_URL = '/plugin-market.json'
+
+const loadWebMarket = async () => {
+    webMarketLoading.value = true
+    webMarketError.value = ''
+    try {
+        let raw = null
+        try {
+            const res = await fetch(WEB_MARKET_PROXY_URL)
+            if (!res.ok) throw new Error(String(res.status))
+            raw = await res.json()
+        } catch (proxyError) {
+            const res = await fetch(MARKET_URL)
+            if (!res.ok) throw new Error(String(res.status))
+            raw = await res.json()
+        }
+        const list = Array.isArray(raw) ? raw : []
+        webMarketPlugins.value = list.map((item, index) => normalizeMarketPlugin(item, index)).filter(Boolean)
+    } catch (error) {
+        console.error('Failed to load web plugin market:', error)
+        webMarketError.value = '插件市场加载失败，请稍后重试，或访问官方插件市场页'
+    } finally {
+        webMarketLoading.value = false
+    }
+}
+
 const resolveMarketState = plugin => {
     const installedExtension = findInstalledExtension(plugin)
 
@@ -797,6 +864,8 @@ onMounted(async () => {
     if (isElectron()) {
         currentAppVersion.value = localStorage.getItem('version')
         await refreshExtensions()
+    } else {
+        loadWebMarket()
     }
 })
 </script>
@@ -1360,6 +1429,48 @@ $border-dark: #232527;
     .extension-actions,
     .market-status-group {
         justify-content: flex-start;
+    }
+}
+
+.web-plugin-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.web-plugin-guide {
+    padding: 16px 20px;
+    border-radius: 10px;
+    background: rgba(127, 127, 127, 0.1);
+
+    h4 {
+        margin: 0 0 10px;
+        font-size: 15px;
+    }
+
+    ol {
+        margin: 0;
+        padding-left: 20px;
+        font-size: 13px;
+        line-height: 1.9;
+        color: var(--text-color, #333);
+
+        code {
+            padding: 1px 6px;
+            border-radius: 4px;
+            background: rgba(127, 127, 127, 0.18);
+            font-family: monospace;
+        }
+    }
+
+    .web-guide-note {
+        margin: 10px 0 0;
+        font-size: 12px;
+        color: var(--text-muted, #666);
+
+        a {
+            color: #2563eb;
+        }
     }
 }
 </style>
