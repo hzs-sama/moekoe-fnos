@@ -1,0 +1,43 @@
+{
+  "schema_version": "2",
+  "source_info": {
+    "name": "MoeKoe for fnOS",
+    "author": "MoeKoe for fnOS",
+    "homepage": "https://github.com/hzs-sama/moekoe-fnos",
+    "description": "飞牛 fnOS 应用源：MoeKoe 音乐（酷狗源在线音乐 Web 版）"
+  },
+  "apps": {
+    "moekoe": {
+      "display_name": "MoeKoe 音乐",
+      "desc": "MoeKoe 音乐 Web 版（酷狗源在线音乐）。安装后桌面点开即用，酷狗扫码登录可解锁收藏同步与高音质。",
+      "platform": [
+        "all"
+      ],
+      "categories": [
+        "影音娱乐"
+      ],
+      "icon_url": "./apps/moekoe/ICON.PNG",
+      "run_as": "package",
+      "install_type": "",
+      "is_docker": true,
+      "releases": {
+        "1.7.3": {
+          "changelog": "MoeKoe Music 飞牛打包版（静态 compose，端口 8095）",
+          "updated_at": "2026-10-13T18:49:15+08:00",
+          "packages": {
+            "all": {
+              "download_url": "./apps/moekoe/fpk/moekoe_v1.7.3_all.fpk",
+              "sha256": "28cc3625d1dee3d5a84dc317eb15e287153523f146ee4362e33a364aeb0faab8",
+              "size": 11565010
+            }
+          }
+        }
+      },
+      "service_port": "8095",
+      "maintainer": "MoeKoeMusic",
+      "maintainer_url": "https://github.com/MoeKoeMusic",
+      "distributor": "MoeKoeMusic",
+      "distributor_url": "https://github.com/MoeKoeMusic"
+    }
+  }
+}

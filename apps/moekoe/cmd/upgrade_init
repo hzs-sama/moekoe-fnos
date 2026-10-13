@@ -1,0 +1,15 @@
+#!/bin/bash
+# 升级前执行：补建 .env（不覆盖已有配置），确保 compose 变量可用
+mkdir -p "${TRIM_APPDEST}/docker"
+if [ ! -f "${TRIM_APPDEST}/docker/.env" ]; then
+    if [ -z "${TRIM_APPDEST_VOL}" ]; then
+        TRIM_APPDEST_VOL=$(echo "$TRIM_APPDEST" | grep -o '^/vol[0-9]\+')
+        [ -z "$TRIM_APPDEST_VOL" ] && TRIM_APPDEST_VOL=$(echo "$TRIM_APPDEST" | cut -d/ -f1,2)
+        export TRIM_APPDEST_VOL
+    fi
+    cat > "${TRIM_APPDEST}/docker/.env" <<EOF
+PORT=${wizard_app_port:-18999}
+APPDEST=${TRIM_APPDEST}
+EOF
+fi
+exit 0

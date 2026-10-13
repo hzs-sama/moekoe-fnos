@@ -1,0 +1,13 @@
+{
+    ".url": {
+        "moekoe.url": {
+            "title": "MoeKoe 音乐",
+            "icon": "images/icon-{0}.png",
+            "type": "url",
+            "protocol": "http",
+            "port": "8095",
+            "url": "/",
+            "allUsers": true
+        }
+    }
+}

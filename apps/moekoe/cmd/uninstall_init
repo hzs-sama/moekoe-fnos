@@ -1,0 +1,9 @@
+#!/bin/bash
+# 卸载前执行：停掉 compose 项目；向导「删除数据」开关开启时清掉 data 目录
+if [ -f "${TRIM_APPDEST}/docker/docker-compose.yaml" ]; then
+    ( cd "${TRIM_APPDEST}/docker" && docker compose down >/dev/null 2>&1 )
+fi
+if [ "${wizard_uninstall_delete_data:-0}" = "1" ] || [ "${wizard_uninstall_delete_data:-}" = "true" ]; then
+    rm -rf "${TRIM_APPDEST}/docker/data"
+fi
+exit 0

@@ -1,0 +1,14 @@
+{
+  "categories": [
+    "影音娱乐"
+  ],
+  "run_as": "package",
+  "install_type": "",
+  "is_docker": true,
+  "previews": [],
+  "releases": {
+    "1.7.3": {
+      "changelog": "MoeKoe Music 飞牛打包版（静态 compose，端口 8095）"
+    }
+  }
+}

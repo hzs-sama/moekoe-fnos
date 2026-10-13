@@ -1,0 +1,22 @@
+#!/bin/bash
+# moekoe（docker 型）生命周期：容器的起停由应用中心管理，这里只报状态
+COMPOSE="${TRIM_APPDEST}/docker/docker-compose.yaml"
+
+container_name() {
+    grep -m1 'container_name' "$COMPOSE" 2>/dev/null | awk -F: '{print $2}' | tr -d ' "'
+}
+
+case "$1" in
+start|stop)
+    # docker 应用由 appcenter 负责起停，无需处理
+    exit 0
+    ;;
+status)
+    name="$(container_name)"
+    [ -n "$name" ] || exit 3
+    docker inspect "$name" 2>/dev/null | grep -q '"Status": "running"' && exit 0 || exit 3
+    ;;
+*)
+    exit 1
+    ;;
+esac

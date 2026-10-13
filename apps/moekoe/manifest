@@ -1,0 +1,16 @@
+appname                    = moekoe
+version                    = 1.7.3
+display_name               = MoeKoe 音乐
+desc                       = MoeKoe 音乐 Web 版（酷狗源在线音乐）。安装后桌面点开即用，酷狗扫码登录可解锁收藏同步与高音质。
+platform                   = all
+source                     = thirdparty
+maintainer                 = MoeKoeMusic
+maintainer_url             = https://github.com/MoeKoeMusic
+distributor                = MoeKoeMusic
+distributor_url            = https://github.com/MoeKoeMusic
+desktop_uidir              = ui
+desktop_applaunchname      = moekoe.url
+service_port               = 8095
+checkport                  = true
+disable_authorization_path = false
+checksum                   = 00000000000000000000000000000000

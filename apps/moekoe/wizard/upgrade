@@ -1,0 +1,11 @@
+[
+  {
+    "stepTitle": "更新 MoeKoe 音乐",
+    "items": [
+      {
+        "type": "tips",
+        "helpText": "点击「下一步」更新 MoeKoe 音乐。容器配置与数据会保留。"
+      }
+    ]
+  }
+]

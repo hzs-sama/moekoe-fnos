@@ -1,0 +1,17 @@
+[
+  {
+    "stepTitle": "卸载确认",
+    "items": [
+      {
+        "type": "tips",
+        "helpText": "确定要卸载 MoeKoe 音乐 吗？卸载将停止并删除应用容器。"
+      },
+      {
+        "type": "switch",
+        "field": "wizard_uninstall_delete_data",
+        "label": "同时删除数据目录",
+        "helpText": "开启后将删除 docker/data 下的应用数据。"
+      }
+    ]
+  }
+]

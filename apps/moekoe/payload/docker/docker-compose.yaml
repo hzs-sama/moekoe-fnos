@@ -1,0 +1,16 @@
+# MoeKoe 音乐 Web 版：nginx 托前端(8080) + 酷狗 API(6521)，对外固定 8095
+# 端口写死（Home-Assistant 同款静态 compose）：应用中心 start 时不注入 .env，
+# 任何 ${VAR} 缺失都会让 compose 静默失败
+services:
+  moekoe:
+    image: moekoe-music:local
+    build:
+      context: ../src
+      dockerfile: Dockerfile
+    container_name: moekoe
+    restart: unless-stopped
+    environment:
+      - PORT=6521
+      - platform=lite
+    ports:
+      - "8095:8080"

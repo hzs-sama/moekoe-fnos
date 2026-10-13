@@ -1,0 +1,16 @@
+#!/bin/bash
+# 安装前执行：准备 docker/ 目录并写入 .env（compose 同目录自动读取）
+mkdir -p "${TRIM_APPDEST}/docker"
+
+# 老版本 fnOS 可能不注入 TRIM_APPDEST_VOL，这里兜底推导
+if [ -z "${TRIM_APPDEST_VOL}" ]; then
+    TRIM_APPDEST_VOL=$(echo "$TRIM_APPDEST" | grep -o '^/vol[0-9]\+')
+    [ -z "$TRIM_APPDEST_VOL" ] && TRIM_APPDEST_VOL=$(echo "$TRIM_APPDEST" | cut -d/ -f1,2)
+    export TRIM_APPDEST_VOL
+fi
+
+cat > "${TRIM_APPDEST}/docker/.env" <<EOF
+PORT=${wizard_app_port:-18999}
+APPDEST=${TRIM_APPDEST}
+EOF
+exit 0
